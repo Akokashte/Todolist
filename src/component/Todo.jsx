@@ -1,0 +1,107 @@
+import React, { useState, useEffect } from "react";
+import { FcPlus } from "react-icons/fc";
+import { FaTrashCan } from "react-icons/fa6";
+import { FaPencil } from "react-icons/fa6";
+import todo from '../images/todo.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// to get the data from local storage
+const getLocalItems = () => {
+  let list = localStorage.getItem('lists');
+  console.log(list);
+  if (list) {
+    return JSON.parse(list);
+  }
+  else {
+    return [];
+  }
+}
+
+const Todo = () => {
+  const [inputText, setInputText] = useState('');
+  const [allData, setAllData] = useState(getLocalItems);
+
+  console.log(inputText);
+
+  // adding data to local storage
+  // JSON.stringify() used to wrap array into string
+  useEffect(() => {
+    localStorage.setItem('lists', JSON.stringify(allData));
+  }, [allData]);
+
+  const addNewItem = () => {
+    if (!inputText) {
+    }
+    else {
+      setAllData([inputText, ...allData]);
+      setInputText('');
+    }
+  }
+
+  const storeTextChanges = (event) => {
+    const inputText = event.target.value;
+    if(inputText.length <= 60){
+      setInputText(inputText);
+    }
+    else{
+      toast.error('Limit exceeded :- Max 50 letters accepted', { position: 'top-center' });
+      // setInputText('');
+    }
+  }
+
+
+  const deleteItem = (id) => {
+    console.log(id);
+    setAllData((allData) => {
+      return allData.filter((curElem, index) => {
+        return id !== index;
+      })
+    })
+  }
+  const removeAll = () => {
+    setAllData([]);
+  }
+
+  const Edit=(id)=>{
+    console.log(id);
+    setInputText(allData[id]);
+    deleteItem(id);
+  }
+
+  return (
+    <>
+      <ToastContainer />
+      <div className="main-div">
+        <div className="child-div">
+          <figure>
+            <img src={todo} alt='todologo' />
+            <figcaption>Add Your List Here</figcaption>
+          </figure>
+          <div className='addItems'>
+            <input type='search' placeholder='✍️ Add Items...' onChange={storeTextChanges} value={inputText} />
+            <FcPlus className='plusIcon' onClick={addNewItem} />
+          </div>
+           <div className="showItems" >
+          {
+            allData.map((curElem, index) => {
+              return (
+                  <div className="eachItem" key={index}>
+                    <span>{curElem}</span>
+                    <FaTrashCan className='trash' onClick={() => deleteItem(index)} />
+                    <FaPencil className='edit' onClick={() => Edit(index)} />
+                  </div>
+              )
+            })
+          }
+          </div>
+          <div className="button">
+            <button className="btn" onClick={removeAll}>Remove All</button>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default Todo;
