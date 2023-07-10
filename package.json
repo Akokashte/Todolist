@@ -1,9 +1,12 @@
 {
   "name": "react-javascript",
+  "homepage": "https://Akokashte.github.io/Todo-list",
   "version": "1.0.0",
   "type": "module",
   "description": "React TypeScript on Replit, using Vite bundler",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -12,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "gh-pages": "^5.0.0",
     "react-icons": "^4.10.1",
     "react-toastify": "^9.1.3"
   },
