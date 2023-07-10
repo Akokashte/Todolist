@@ -105,7 +105,7 @@
 .showItems .eachItem .edit{
   font-size:1.5em;
   position:absolute;
-  color:#30e5e8;
+  color:#f9e71a;
   right:2em;
   display:inline-block;
   background-color:transparent;
@@ -114,6 +114,9 @@
   transition-duration:0.2s;
 }
 
+.showItems .eachItem .edit:hover{
+  color:#f9e71a;
+}
 .showItems .eachItem .trash:hover{
   color:red;
 }
@@ -150,5 +153,19 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
 .child-div{
   width:100%;
 }
-  
+  .child-div .addItems input{
+  width:60%;
+  font-size:1em;
+}
+  .showItems{
+  width:70%;
+}
+  .showItems .eachItem{
+  width:100%;
+  font-size:0.9em;
+  padding:2em 0;
+}
+  .showItems .eachItem span{
+  width:12rem;
+}
 }

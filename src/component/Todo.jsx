@@ -41,7 +41,7 @@ const Todo = () => {
 
   const storeTextChanges = (event) => {
     const inputText = event.target.value;
-    if(inputText.length <= 60){
+    if(inputText.length <= 50){
       setInputText(inputText);
     }
     else{
