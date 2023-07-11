@@ -1,6 +1,6 @@
 {
   "name": "react-javascript",
-  "homepage": "https://Akokashte.github.io/Todo-list",
+  "homepage": "https://akokashte.github.io/Todo-list",
   "version": "1.0.0",
   "type": "module",
   "description": "React TypeScript on Replit, using Vite bundler",
@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gh-pages": "^5.0.0",
     "react-icons": "^4.10.1",
     "react-toastify": "^9.1.3"
   },
@@ -23,6 +22,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^4.9.5",
