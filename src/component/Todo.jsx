@@ -21,6 +21,8 @@ const getLocalItems = () => {
 const Todo = () => {
   const [inputText, setInputText] = useState('');
   const [allData, setAllData] = useState(getLocalItems);
+  const [action, setAction] = useState("")
+  const [editedIndex, setEditedIndex] = useState()
 
   console.log(inputText);
 
@@ -33,20 +35,36 @@ const Todo = () => {
   const addNewItem = () => {
     if (!inputText) {
     }
+    else if (inputText.length < 3) {
+      toast.warn('Word at least contain three letters', { position: 'top-center' });
+    }
     else {
-      setAllData([inputText, ...allData]);
-      setInputText('');
+      if (action === "edit") {
+        allData.splice(editedIndex, 0, inputText)
+        setAllData(allData)
+        console.log("hi" + allData)
+        setAction("")
+        setInputText('');
+      }
+      else {
+        setAllData([inputText, ...allData]);
+        setInputText('');
+      }
     }
   }
 
   const storeTextChanges = (event) => {
     const inputText = event.target.value;
-    if(inputText.length <= 50){
+    if (inputText.length <= 50) {
       setInputText(inputText);
     }
-    else{
-      toast.error('Limit exceeded :- Max 50 letters accepted', { position: 'top-center' });
-      // setInputText('');
+    else {
+      if (action === "add") {
+        setAction("")
+        toast.error('Limit exceeded :- Max 50 letters accepted', { position: 'top-center' });
+      }
+      else
+        return
     }
   }
 
@@ -63,8 +81,10 @@ const Todo = () => {
     setAllData([]);
   }
 
-  const Edit=(id)=>{
+  const Edit = (id) => {
     console.log(id);
+    setEditedIndex(id)
+    setAction("edit");
     setInputText(allData[id]);
     deleteItem(id);
   }
@@ -82,18 +102,18 @@ const Todo = () => {
             <input type='search' placeholder='✍️ Add Items...' onChange={storeTextChanges} value={inputText} />
             <FcPlus className='plusIcon' onClick={addNewItem} />
           </div>
-           <div className="showItems" >
-          {
-            allData.map((curElem, index) => {
-              return (
+          <div className="showItems" >
+            {
+              allData.map((curElem, index) => {
+                return (
                   <div className="eachItem" key={index}>
                     <span>{curElem}</span>
                     <FaTrashCan className='trash' onClick={() => deleteItem(index)} />
                     <FaPencil className='edit' onClick={() => Edit(index)} />
                   </div>
-              )
-            })
-          }
+                )
+              })
+            }
           </div>
           <div className="button">
             <button className="btn" onClick={removeAll}>Remove All</button>
